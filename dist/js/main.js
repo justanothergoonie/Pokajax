@@ -12,13 +12,37 @@ console.log('hello');
 
 var Main = /*#__PURE__*/function () {
   function Main() {
+    var _this = this;
+
     _classCallCheck(this, Main);
+
+    _defineProperty(this, "handleGotGeocode", function (event) {
+      _this.currentLocation = event.detail;
+      console.log(_this.currentLocation);
+      var location = new google.maps.LatLng(_this.currentLocation.lat, _this.currentLocation.lng);
+      var placeEvent = new CustomEvent('get-places', {
+        detail: {
+          location: location,
+          radius: 5000
+        }
+      });
+      document.querySelector('body').dispatchEvent(placeEvent);
+    });
+
+    _defineProperty(this, "handleGotPlaces", function (event) {
+      _this.currentPlaces = event.detail;
+      console.log(_this.currentPlaces);
+    });
 
     _defineProperty(this, "handleSearch", function (event) {
       event.preventDefault();
       var locationEl = document.querySelector('[name="location"]');
       var locationTerm = locationEl.value;
       console.log('searching..', locationTerm);
+      var evt = new CustomEvent('get-geocode', {
+        detail: locationTerm
+      });
+      document.querySelector('body').dispatchEvent(evt);
     });
 
     this.setupEventListeners();
@@ -30,6 +54,8 @@ var Main = /*#__PURE__*/function () {
       var buttonEl = document.querySelector('[name="search"]');
       buttonEl.addEventListener('click', this.handleSearch);
       var bodyEl = document.querySelector('body');
+      bodyEl.addEventListener('got-geocode', this.handleGotGeocode);
+      bodyEl.addEventListener('got-places', this.handleGotPlaces);
       bodyEl.addEventListener('got-results', this.handleResults);
       bodyEl.addEventListener('got-error', this.handleSearchError);
     }
@@ -37,4 +63,6 @@ var Main = /*#__PURE__*/function () {
 
   return Main;
 }();
+
+new Main();
 //# sourceMappingURL=main.js.map
