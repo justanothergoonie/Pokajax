@@ -16,17 +16,210 @@ var Main = /*#__PURE__*/function () {
 
     _classCallCheck(this, Main);
 
+    _defineProperty(this, "currentPlaces", []);
+
     _defineProperty(this, "handleGotGeocode", function (event) {
       _this.currentLocation = event.detail;
       console.log(_this.currentLocation);
       var location = new google.maps.LatLng(_this.currentLocation.lat, _this.currentLocation.lng);
-      var placeEvent = new CustomEvent('get-places', {
-        detail: {
-          location: location,
-          radius: 5000
-        }
+      var placeRockEvent = ['campground', 'ground'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
       });
-      document.querySelector('body').dispatchEvent(placeEvent);
+      var placeWaterEvent = ['fire_station', 'water'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeWaterEvent2 = ['aquarium', 'water'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeFairyEvent = ['beauty_salon', 'ground'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeFightingEvent = ['gym', 'fighting'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placePoisonEvent = ['bar', 'poison'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placePsychicEvent = ['university', 'psychic'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGrassEvent = ['park', 'grass'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGrassEvent2 = ['camp_ground', 'grass'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGrassEvent3 = ['florist', 'grass'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGroundEvent = ['camp_ground', 'ground'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeBugEvent = ['park', 'bug'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeBugEvent2 = ['florist', 'bug'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeFlyingEvent = ['airport', 'flying'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeSteelEvent = ['airport', 'steel'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGhostEvent = ['cemetery', 'ghost'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeDarkEvent = ['cemetery', 'dark'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeGhostEvent2 = ['funeral_home', 'ghost'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeDarkEvent2 = ['funeral_home', 'dark'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeDragonEvent = ['amusement_park', 'dragon'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeElectricEvent = ['electrician', 'electric'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
+      var placeElectricEvent2 = ['electronics_store', 'electric'].forEach(function (type) {
+        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+          detail: {
+            location: location,
+            radius: 5000,
+            type: type
+          }
+        }));
+      });
     });
 
     _defineProperty(this, "handleGotPlaces", function (event) {

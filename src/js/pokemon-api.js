@@ -1,4 +1,9 @@
-const P = new Pokedex.Pokedex();
+class PokemonAPi {
+	constructor() {
+		const p = new Pokedex.Pokedex();
+	}
+}
+
 // P.getTypeByName('ground').then(function (response) {
 // 	console.log(response);
 // });
