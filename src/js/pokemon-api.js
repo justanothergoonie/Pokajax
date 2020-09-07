@@ -1,13 +1,16 @@
 class PokemonAPi {
 	constructor() {
-		const p = new Pokedex.Pokedex();
+		p = new Pokedex.Pokedex();
+		const bodyEl = document.querySelector('body');
+		bodyEl.addEventListener('get-pokemon', this.handleGetPokemon);
+		// bodyEl.addEventListener('get-places', this.handleGetPlaces);
 	}
-}
+	pokedex = (pokemon) => {
+		this.p.getPokemonByName({ pokemon: pokemon });
+	};
 
-// P.getTypeByName('ground').then(function (response) {
-// 	console.log(response);
-// });
-// P.getPokemonByName("butterfree")
-//     .then(function(response) {
-//       console.log(response);
-//     });
+	handleGetPokemon = (event) => {
+		this.poekdex(event.detail);
+		console.log(event.detail);
+	};
+}

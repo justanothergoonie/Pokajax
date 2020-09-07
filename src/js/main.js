@@ -277,7 +277,16 @@ class Main {
 		const locationEl = document.querySelector('[name="location"]');
 		const locationTerm = locationEl.value;
 
-		console.log('searching..', locationTerm);
+		const pokemonEl = document.querySelector('[name="pokemon"]');
+		const pokemonTerm = pokemonEl.value;
+
+		console.log('searching..', locationTerm, pokemonTerm);
+
+		const pokemonEvt = new CustomEvent('get-pokemon', {
+			detail: pokemonTerm,
+		});
+		document.querySelector('body').dispatchEvent(pokemonEvt);
+
 		const evt = new CustomEvent('get-geocode', { detail: locationTerm });
 		document.querySelector('body').dispatchEvent(evt);
 	};

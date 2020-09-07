@@ -231,7 +231,13 @@ var Main = /*#__PURE__*/function () {
       event.preventDefault();
       var locationEl = document.querySelector('[name="location"]');
       var locationTerm = locationEl.value;
-      console.log('searching..', locationTerm);
+      var pokemonEl = document.querySelector('[name="pokemon"]');
+      var pokemonTerm = pokemonEl.value;
+      console.log('searching..', locationTerm, pokemonTerm);
+      var pokemonEvt = new CustomEvent('get-pokemon', {
+        detail: pokemonTerm
+      });
+      document.querySelector('body').dispatchEvent(pokemonEvt);
       var evt = new CustomEvent('get-geocode', {
         detail: locationTerm
       });
