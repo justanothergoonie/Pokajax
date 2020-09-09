@@ -5,7 +5,12 @@ class WeatherApi {
 	weatherSearch(term, params) {
 		axios
 			.get(this.BASE_URL, {
-				params: { access_key: this.API_KEY, query: term, ...params },
+				params: {
+					access_key: this.API_KEY,
+					query: term,
+					units: 'f',
+					...params,
+				},
 			})
 			.then(this.handleResponse)
 			.catch(this.handleError);

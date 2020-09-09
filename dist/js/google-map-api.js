@@ -50,6 +50,8 @@ var GoogleApi = /*#__PURE__*/function () {
             detail: results
           });
           document.querySelector('body').dispatchEvent(evt);
+        } else {
+          console.warn('google maps places status NOT OK', status);
         }
       });
     });

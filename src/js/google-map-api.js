@@ -41,6 +41,8 @@ class GoogleApi {
 				// }
 				const evt = new CustomEvent('got-places', { detail: results });
 				document.querySelector('body').dispatchEvent(evt);
+			} else {
+				console.warn('google maps places status NOT OK', status);
 			}
 		});
 	};

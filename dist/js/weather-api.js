@@ -27,7 +27,8 @@ var WeatherApi = /*#__PURE__*/function () {
       axios.get(this.BASE_URL, {
         params: _objectSpread({
           access_key: this.API_KEY,
-          query: term
+          query: term,
+          units: 'f'
         }, params)
       }).then(this.handleResponse).catch(this.handleError);
     }

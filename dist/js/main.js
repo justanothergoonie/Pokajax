@@ -18,213 +18,148 @@ var Main = /*#__PURE__*/function () {
 
     _defineProperty(this, "currentPlaces", []);
 
+    _defineProperty(this, "currentPokemonType", '');
+
+    _defineProperty(this, "p", new Pokedex.Pokedex());
+
     _defineProperty(this, "handleGotGeocode", function (event) {
-      _this.currentLocation = event.detail;
-      console.log(_this.currentLocation);
-      var location = new google.maps.LatLng(_this.currentLocation.lat, _this.currentLocation.lng);
-      var placeRockEvent = ['campground', 'ground'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      console.log('handleGotGeocode', _this.currentLocation);
+      _this.currentLocation = new google.maps.LatLng(event.detail.lat, event.detail.lng);
+    });
+
+    _defineProperty(this, "searchPlacesByType", function () {
+      console.log('searchPlacesByType', _this.currentPokemonType);
+
+      if (_this.currentPokemonType === 'grass') {
+        ['park', 'campground', 'florist'].forEach(function (type) {
+          document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: _this.currentLocation,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'water') {
+        ['fire_station', 'aquarium'].forEach(function (type) {
+          return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: _this.currentLocation,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'ground') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'campground'
           }
         }));
-      });
-      var placeWaterEvent = ['fire_station', 'water'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'electric') {
+        ['electrician', 'electronics_store'].forEach(function (type) {
+          document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: location,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'fairy') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'beauty_salon'
           }
         }));
-      });
-      var placeWaterEvent2 = ['aquarium', 'water'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'bug') {
+        ['park', 'campground', 'florist'].forEach(function (type) {
+          return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: _this.currentLocation,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'dragon') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'amusement_park'
           }
         }));
-      });
-      var placeFairyEvent = ['beauty_salon', 'ground'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'ghost') {
+        ['funeral_home', 'cemetery'].forEach(function (type) {
+          document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: location,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'dark') {
+        ['funeral_home', 'cemetery'].forEach(function (type) {
+          document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+            detail: {
+              location: location,
+              radius: 5000,
+              type: type
+            }
+          }));
+        });
+      } else if (_this.currentPokemonType === 'steel') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'airport'
           }
         }));
-      });
-      var placeFightingEvent = ['gym', 'fighting'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'flying') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'airport'
           }
         }));
-      });
-      var placePoisonEvent = ['bar', 'poison'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'psychic') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'university'
           }
         }));
-      });
-      var placePsychicEvent = ['university', 'psychic'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'poison') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'bar'
           }
         }));
-      });
-      var placeGrassEvent = ['park', 'grass'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
+      } else if (_this.currentPokemonType === 'fighting') {
+        document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
           detail: {
             location: location,
             radius: 5000,
-            type: type
+            type: 'gym'
           }
         }));
-      });
-      var placeGrassEvent2 = ['camp_ground', 'grass'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeGrassEvent3 = ['florist', 'grass'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeGroundEvent = ['camp_ground', 'ground'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeBugEvent = ['park', 'bug'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeBugEvent2 = ['florist', 'bug'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeFlyingEvent = ['airport', 'flying'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeSteelEvent = ['airport', 'steel'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeGhostEvent = ['cemetery', 'ghost'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeDarkEvent = ['cemetery', 'dark'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeGhostEvent2 = ['funeral_home', 'ghost'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeDarkEvent2 = ['funeral_home', 'dark'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeDragonEvent = ['amusement_park', 'dragon'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeElectricEvent = ['electrician', 'electric'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
-      var placeElectricEvent2 = ['electronics_store', 'electric'].forEach(function (type) {
-        return document.querySelector('body').dispatchEvent(new CustomEvent('get-places', {
-          detail: {
-            location: location,
-            radius: 5000,
-            type: type
-          }
-        }));
-      });
+      }
     });
 
     _defineProperty(this, "handleGotPlaces", function (event) {
       _this.currentPlaces = event.detail;
-      console.log(_this.currentPlaces);
+      console.log('handleGotPlaces', _this.currentPlaces);
     });
 
     _defineProperty(this, "handleSearch", function (event) {
@@ -234,14 +169,26 @@ var Main = /*#__PURE__*/function () {
       var pokemonEl = document.querySelector('[name="pokemon"]');
       var pokemonTerm = pokemonEl.value;
       console.log('searching..', locationTerm, pokemonTerm);
-      var pokemonEvt = new CustomEvent('get-pokemon', {
-        detail: pokemonTerm
+
+      _this.p.getPokemonByName(pokemonTerm.toLowerCase()).then(function (response) {
+        _this.currentPokemonType = response.types[0].type.name;
+        console.log(_this.currentPokemonType);
+        var evt = new CustomEvent('get-geocode', {
+          detail: locationTerm
+        });
+        document.querySelector('body').dispatchEvent(evt); // google replies with a got-geocode event on body
+
+        document.body.addEventListener('got-geocode', function () {
+          console.log('google got the city');
+
+          _this.searchPlacesByType();
+        }, {
+          once: true
+        });
       });
-      document.querySelector('body').dispatchEvent(pokemonEvt);
-      var evt = new CustomEvent('get-geocode', {
-        detail: locationTerm
-      });
-      document.querySelector('body').dispatchEvent(evt);
+
+      var api = new WeatherApi();
+      api.weatherSearch(locationTerm);
     });
 
     this.setupEventListeners();
