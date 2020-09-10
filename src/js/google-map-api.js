@@ -1,9 +1,11 @@
 class GoogleApi {
+	markers = [];
 	constructor() {
 		this.setupMap();
 		const bodyEl = document.querySelector('body');
 		bodyEl.addEventListener('get-geocode', this.handleGetGeocode);
 		bodyEl.addEventListener('get-places', this.handleGetPlaces);
+		bodyEl.addEventListener('place-markers', this.handlePlaceMarkers);
 	}
 	setupMap() {
 		var circusLatLng = { lat: 33.749, lng: -84.388 };
@@ -16,7 +18,7 @@ class GoogleApi {
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode({ address: address }, (results, status) => {
 			if (status == 'OK') {
-				console.log(results);
+				// console.log(results);
 				this.map.setCenter(results[0].geometry.location);
 				const event = new CustomEvent('got-geocode', {
 					detail: {
@@ -36,9 +38,6 @@ class GoogleApi {
 		var service = new google.maps.places.PlacesService(this.map);
 		service.nearbySearch(request, (results, status) => {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				// for (var i = 0; i < results.length; i++) {
-				// 	createMarker(results[i]);
-				// }
 				const evt = new CustomEvent('got-places', { detail: results });
 				document.querySelector('body').dispatchEvent(evt);
 			} else {
@@ -49,6 +48,18 @@ class GoogleApi {
 
 	handleGetPlaces = (event) => {
 		this.searchPlaces(event.detail);
+	};
+
+	handlePlaceMarkers = (event) => {
+		console.log('hello', event.detail);
+		for (let poke in event.detail) {
+			const pokeMark = event.detail[poke];
+			var pokeMarker = new google.maps.Marker({
+				position: pokeMark.marker,
+				map: this.map,
+				title: pokeMark.name,
+			});
+		}
 	};
 }
 function initMap() {

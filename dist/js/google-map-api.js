@@ -14,14 +14,15 @@ var GoogleApi = /*#__PURE__*/function () {
 
     _classCallCheck(this, GoogleApi);
 
+    _defineProperty(this, "markers", []);
+
     _defineProperty(this, "geocode", function (address) {
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({
         address: address
       }, function (results, status) {
         if (status == 'OK') {
-          console.log(results);
-
+          // console.log(results);
           _this.map.setCenter(results[0].geometry.location);
 
           var event = new CustomEvent('got-geocode', {
@@ -43,9 +44,6 @@ var GoogleApi = /*#__PURE__*/function () {
       var service = new google.maps.places.PlacesService(_this.map);
       service.nearbySearch(request, function (results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          // for (var i = 0; i < results.length; i++) {
-          // 	createMarker(results[i]);
-          // }
           var evt = new CustomEvent('got-places', {
             detail: results
           });
@@ -60,10 +58,24 @@ var GoogleApi = /*#__PURE__*/function () {
       _this.searchPlaces(event.detail);
     });
 
+    _defineProperty(this, "handlePlaceMarkers", function (event) {
+      console.log('hello', event.detail);
+
+      for (var poke in event.detail) {
+        var pokeMark = event.detail[poke];
+        var pokeMarker = new google.maps.Marker({
+          position: pokeMark.marker,
+          map: _this.map,
+          title: pokeMark.name
+        });
+      }
+    });
+
     this.setupMap();
     var bodyEl = document.querySelector('body');
     bodyEl.addEventListener('get-geocode', this.handleGetGeocode);
     bodyEl.addEventListener('get-places', this.handleGetPlaces);
+    bodyEl.addEventListener('place-markers', this.handlePlaceMarkers);
   }
 
   _createClass(GoogleApi, [{

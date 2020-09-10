@@ -36,7 +36,7 @@ var WeatherApi = /*#__PURE__*/function () {
     key: "handleResponse",
     value: function handleResponse(response) {
       console.log('got a response', response);
-      var event = new CustomEvent('got-results', {
+      var event = new CustomEvent('got-weather', {
         detail: response
       });
       document.querySelector('body').dispatchEvent(event);
