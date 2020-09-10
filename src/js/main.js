@@ -27,76 +27,30 @@ class Main {
 	searchPlacesByType = () => {
 		console.log('searchPlacesByType', this.currentPokemonType);
 		let type = 'normal';
-		if (this.currentPokemonType === 'grass') {
-			['park', 'campground', 'florist'].forEach((type) => {
-				document.querySelector('body').dispatchEvent(
-					new CustomEvent('get-places', {
-						detail: {
-							location: this.currentLocation,
-							radius: 5000,
-							type: type,
-						},
-					})
-				);
-			});
+		if (
+			this.currentPokemonType === 'grass' ||
+			this.currentPokemonType === 'bug'
+		) {
+			const types = ['park', 'campground', 'florist'];
+			const index = Math.floor(Math.random() * types.length);
+			console.log(index);
+			type = types[index];
 		} else if (this.currentPokemonType === 'water') {
-			['fire_station', 'aquarium'].forEach((type) =>
-				document.querySelector('body').dispatchEvent(
-					new CustomEvent('get-places', {
-						detail: {
-							location: this.currentLocation,
-							radius: 5000,
-							type: type,
-						},
-					})
-				)
-			);
+			const types = ['fire_station', 'aquarium'];
+			const index = Math.floor(Math.random() * types.length);
+			console.log(index);
+			type = types[index];
 		} else if (this.currentPokemonType === 'ground') {
 			type = 'campground';
 		} else if (this.currentPokemonType === 'electric') {
-			['electrician', 'electronics_store'].forEach((type) => {
-				document.querySelector('body').dispatchEvent(
-					new CustomEvent('get-places', {
-						detail: {
-							location: this.currentLocation,
-							radius: 5000,
-							type: type,
-						},
-					})
-				);
-			});
+			const types = ['electrician', 'electronics_store'];
+			const index = Math.floor(Math.random() * types.length);
+			console.log(index);
+			type = types[index];
 		} else if (this.currentPokemonType === 'fairy') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'beauty_salon',
-					},
-				})
-			);
-		} else if (this.currentPokemonType === 'bug') {
-			['park', 'campground', 'florist'].forEach((type) =>
-				document.querySelector('body').dispatchEvent(
-					new CustomEvent('get-places', {
-						detail: {
-							location: this.currentLocation,
-							radius: 5000,
-							type: type,
-						},
-					})
-				)
-			);
+			type = 'beauty_salon';
 		} else if (this.currentPokemonType === 'dragon') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'amusement_park',
-					},
-				})
-			);
+			type = 'amusement_park';
 		} else if (
 			this.currentPokemonType === 'dark' ||
 			this.currentPokemonType === 'ghost'
@@ -105,66 +59,18 @@ class Main {
 			const index = Math.floor(Math.random() * types.length);
 			console.log(index);
 			type = types[index];
-		} else if (this.currentPokemonType === 'steel') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'airport',
-					},
-				})
-			);
-		} else if (this.currentPokemonType === 'flying') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'airport',
-					},
-				})
-			);
+		} else if (
+			this.currentPokemonType === 'steel' ||
+			this.currentPokemonType == 'flying'
+		) {
+			type = 'airport';
 		} else if (this.currentPokemonType === 'psychic') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'university',
-					},
-				})
-			);
+			type = 'university';
 		} else if (this.currentPokemonType === 'poison') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'bar',
-					},
-				})
-			);
+			type = 'bar';
 		} else if (this.currentPokemonType === 'fighting') {
-			document.querySelector('body').dispatchEvent(
-				new CustomEvent('get-places', {
-					detail: {
-						location: this.currentLocation,
-						radius: 5000,
-						type: 'gym',
-					},
-				})
-			);
+			type = 'gym';
 		}
-		document.querySelector('body').dispatchEvent(
-			new CustomEvent('get-places', {
-				detail: {
-					location: this.currentLocation,
-					radius: 5000,
-					type: type,
-				},
-			})
-		);
 	};
 
 	handleGotPlaces = (event) => {
