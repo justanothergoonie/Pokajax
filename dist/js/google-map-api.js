@@ -16,6 +16,8 @@ var GoogleApi = /*#__PURE__*/function () {
 
     _defineProperty(this, "markers", []);
 
+    _defineProperty(this, "mainInfoWindow", null);
+
     _defineProperty(this, "geocode", function (address) {
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({
@@ -50,6 +52,7 @@ var GoogleApi = /*#__PURE__*/function () {
           document.querySelector('body').dispatchEvent(evt);
         } else {
           console.warn('google maps places status NOT OK', status);
+          alert("We're Sorry Theres Currently No Pokemon By That Name Near You, Try A Larger Radius Or A Different Pokemon ");
         }
       });
     });
@@ -59,19 +62,46 @@ var GoogleApi = /*#__PURE__*/function () {
     });
 
     _defineProperty(this, "handlePlaceMarkers", function (event) {
+      var results = event.detail;
       console.log('hello', event.detail);
-
-      for (var poke in event.detail) {
-        var pokeMark = event.detail[poke];
+      results.forEach(function (poke) {
+        // const pokeMark = results[poke];
         var pokeMarker = new google.maps.Marker({
-          position: pokeMark.marker,
+          position: poke.marker,
           map: _this.map,
-          title: pokeMark.name
+          title: poke.name,
+          icon: poke.icon,
+          animation: google.maps.Animation.DROP,
+          contentString: poke.infoWindowContent
         });
-      }
+        var moves = poke.moves;
+        var movesIndex1 = Math.floor(Math.random() * moves.length);
+        var movesIndex2 = Math.floor(Math.random() * moves.length);
+        var move1 = moves[movesIndex1].move.name;
+        var move2 = moves[movesIndex2].move.name;
+        var contentString = '<div class= info-window>' + '<div class= card-header> ' + '<h1 class=pokemon-name>' + 'Name: ' + poke.name + '</h1>' + '<span class=pokemon-health>' + poke.health + ' HP' + '</span>' + '</div>' + '<br/>' + '<div class=move-container>' + '<span class=move-one>' + 'Attack 1: ' + move1 + '</span>' + '<span class=move-two>' + 'Attack 2: ' + move2 + '</span>' + '</div>' + '<br/>' + '<div class= stats-container>' + '<div class= attack-container>' + '<span class= normal-attack>' + 'Atk: ' + poke.attack + '</span>' + '<span class= spec-attack>' + 'Spec-Atk: ' + poke.specAttack + '</span>' + '</div>' + '<br/>' + '<div class=defense-container>' + '<span class=normal-defense>' + 'Def: ' + poke.defense + '</span>' + '<span class=special-defense>' + 'Spec-Def: ' + poke.specDefense + '</span>' + '</div>' + '</div>' + '</div>';
+        pokeMarker.addListener('click', function () {
+          _this.mainInfoWindow.setContent(contentString);
+
+          _this.mainInfoWindow.open(_this.map, pokeMarker);
+        });
+
+        _this.markers.push(pokeMarker);
+      });
+    });
+
+    _defineProperty(this, "clearMap", function () {
+      _this.markers.forEach(function (marker) {
+        marker.setMap(null);
+      });
+
+      _this.markers = [];
+      _this.bounds = new google.maps.LatLngBounds();
     });
 
     this.setupMap();
+    var buttonEl = document.querySelector('[name="clear"]');
+    buttonEl.addEventListener('click', this.clearMap);
     var bodyEl = document.querySelector('body');
     bodyEl.addEventListener('get-geocode', this.handleGetGeocode);
     bodyEl.addEventListener('get-places', this.handleGetPlaces);
@@ -88,6 +118,9 @@ var GoogleApi = /*#__PURE__*/function () {
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
         center: circusLatLng
+      });
+      this.mainInfoWindow = new google.maps.InfoWindow({
+        maxWidth: 1000
       });
     }
   }]);

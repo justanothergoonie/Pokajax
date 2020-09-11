@@ -2,12 +2,25 @@ console.log('hello');
 class Main {
 	currentPlaces = [];
 	currentPokemonType = '';
+	currentPokemonName = '';
+	currentPokemonImg = '';
+	currentPokemonMove1 = '';
+	currentPokemonMove2 = '';
+	currentPokemonAttack = '';
+	currentPokemonSpecialAttack = '';
+	currentPokemonDefense = '';
+	currentPokemonSpecialDefense = '';
+	currentPokemonSpeed = '';
+	currentPokemonHealth = '';
+	currentPokemonAbility = '';
+	radiusEl = document.querySelector('[name="radius"]');
+
 	p = new Pokedex.Pokedex();
 	constructor() {
 		this.setupEventListeners();
 	}
 	setupEventListeners() {
-		const buttonEl = document.querySelector('[name="search"]');
+		const buttonEl = document.querySelector('[name="add-pokemon"]');
 		buttonEl.addEventListener('click', this.handleSearch);
 		const bodyEl = document.querySelector('body');
 		bodyEl.addEventListener('got-geocode', this.handleGotGeocode);
@@ -71,8 +84,16 @@ class Main {
 		} else if (this.currentPokemonType === 'fighting') {
 			type = 'gym';
 		}
+		document.querySelector('body').dispatchEvent(
+			new CustomEvent('get-places', {
+				detail: {
+					location: this.currentLocation,
+					radius: this.radiusEl.value,
+					type: type,
+				},
+			})
+		);
 	};
-
 	handleGotPlaces = (event) => {
 		this.currentPlaces = event.detail;
 		console.log('handleGotPlaces', this.currentPlaces);
@@ -84,10 +105,26 @@ class Main {
 
 			return {
 				marker: pokeMarkerLocation,
-				icon: null,
-				infoWindowContent: null,
-				name: null,
-				type: null,
+				icon: this.currentPokemonImg,
+				name: this.currentPokemonName,
+				type: this.currentPokemonType,
+				health: this.currentPokemonHealth,
+				speed: this.currentPokemonSpeed,
+				moves: this.moves,
+				attack: this.currentPokemonAttack,
+				specAttack: this.currentPokemonSpecialAttack,
+				defense: this.currentPokemonDefense,
+				specDefense: this.currentPokemonSpecialDefense,
+				infoWindowContent: [
+					this.currentPokemonType,
+					this.currentPokemonHealth,
+					this.currentPokemonSpeed,
+					this.currentPokemonMoves,
+					this.currentPokemonAttack,
+					this.currentPokemonSpecialAttack,
+					this.currentPokemonDefense,
+					this.currentPokemonSpecialDefense,
+				],
 			};
 		});
 		const pokeEvent = new CustomEvent('place-markers', {
@@ -109,7 +146,35 @@ class Main {
 
 		this.p.getPokemonByName(pokemonTerm.toLowerCase()).then((response) => {
 			this.currentPokemonType = response.types[0].type.name;
-			console.log(this.currentPokemonType);
+			this.currentPokemonName = response.species.name;
+			this.currentPokemonImg = response.sprites.front_default;
+			var abilities = response.abilities;
+			const abilityIndex = Math.floor(Math.random() * abilities.length);
+			this.currentPokemonAbility = abilities[abilityIndex].ability.name;
+			this.currentPokemonHealth = response.stats[0].base_stat;
+			this.currentPokemonAttack = response.stats[1].base_stat;
+			this.currentPokemonDefense = response.stats[2].base_stat;
+			this.currentPokemonSpecialAttack = response.stats[3].base_stat;
+			this.currentPokemonSpecialDefense = response.stats[4].base_stat;
+			this.currentPokemonSpeed = response.stats[5].base_stat;
+			this.moves = response.moves;
+			// const movesIndex1 = Math.floor(Math.random() * moves.length);
+			// const movesIndex2 = Math.floor(Math.random() * moves.length);
+			// this.currentPokemonMove1 = moves[movesIndex1].move.name;
+			// this.currentPokemonMove2 = moves[movesIndex2].move.name;
+			console.log(
+				response,
+				this.currentPokemonName,
+				this.currentPokemonType,
+				this.currentPokemonAbility,
+				this.currentPokemonHealth,
+				this.currentPokemonAttack,
+				this.currentPokemonDefense,
+				this.currentPokemonSpecialAttack,
+				this.currentPokemonSpecialDefense,
+				this.currentPokemonSpeed,
+				this.currentPokemonMoves
+			);
 			document.body.addEventListener(
 				'got-geocode',
 				() => {
@@ -127,7 +192,11 @@ class Main {
 		const api = new WeatherApi();
 		api.weatherSearch(locationTerm);
 	};
-
+	handleSearchError = () => {
+		if ((this.currentLocation = '')) {
+			alert('you need a location');
+		}
+	};
 	handleWeather = (event) => {
 		const results = event.detail;
 		console.log('showing results from map', results);
