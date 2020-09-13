@@ -192,11 +192,7 @@ class Main {
 		const api = new WeatherApi();
 		api.weatherSearch(locationTerm);
 	};
-	handleSearchError = () => {
-		if ((this.currentLocation = '')) {
-			alert('you need a location');
-		}
-	};
+	handleSearchError = () => {};
 	handleWeather = (event) => {
 		const results = event.detail;
 		console.log('showing results from map', results);

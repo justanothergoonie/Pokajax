@@ -181,11 +181,7 @@ var Main = /*#__PURE__*/function () {
       api.weatherSearch(locationTerm);
     });
 
-    _defineProperty(this, "handleSearchError", function () {
-      if (_this.currentLocation = '') {
-        alert('you need a location');
-      }
-    });
+    _defineProperty(this, "handleSearchError", function () {});
 
     _defineProperty(this, "handleWeather", function (event) {
       var results = event.detail;
