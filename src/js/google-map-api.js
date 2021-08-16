@@ -24,7 +24,7 @@ class GoogleApi {
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode({ address: address }, (results, status) => {
 			if (status == 'OK') {
-				// console.log(results);
+				console.log(results);
 				this.map.setCenter(results[0].geometry.location);
 				const event = new CustomEvent('got-geocode', {
 					detail: {
@@ -78,10 +78,10 @@ class GoogleApi {
 			const move1 = moves[movesIndex1].move.name;
 			const move2 = moves[movesIndex2].move.name;
 			var contentString =
-				'<div class= info-window>' +
-				'<div class= card-header> ' +
+				'<div class=card>' +
+				'<div class=card-header> ' +
 				'<h1 class=pokemon-name>' +
-				'Name: ' +
+				'Name ' +
 				poke.name +
 				'</h1>' +
 				'<span class=pokemon-health>' +

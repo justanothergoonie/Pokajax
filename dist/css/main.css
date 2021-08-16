@@ -190,54 +190,20 @@ form {
 }
 
 form .inputs {
-	display: flex;
-	align-content: space-between;
-	flex-direction: column;
-	text-align: center;
 	min-width: 30%;
 	max-width: 40%;
 }
 
-form .inputs .location {
-	display: flex;
-	align-items: center;
-	padding-bottom: 5%;
-}
-
-form .inputs .location label {
-	padding-right: 7%;
-}
-
-form .inputs .location input {
-	width: 80%;
-}
-
-form .inputs .pokemon {
-	display: flex;
-	align-items: center;
-}
-
-form .inputs .pokemon label {
-	padding-right: 6%;
-}
-
-form .inputs .pokemon input {
-	width: 80%;
-}
-
 form .radius {
-	display: flex;
-	align-items: center;
-	margin: 2%;
-}
-
-form .radius label {
-	padding-right: 2%;
+	min-width: 30%;
+	max-width: 40%;
 }
 
 form .buttons {
 	display: flex;
-	flex-direction: column;
+	min-width: 30%;
+	max-width: 40%;
+	justify-content: space-around;
 }
 
 form .buttons .add-pokemon {
