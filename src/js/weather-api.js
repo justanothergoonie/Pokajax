@@ -17,7 +17,7 @@ class WeatherApi {
 	}
 	handleResponse(response) {
 		console.log('got a response', response);
-		const event = new CustomEvent('got-results', {
+		const event = new CustomEvent('got-weather', {
 			detail: response,
 		});
 		document.querySelector('body').dispatchEvent(event);

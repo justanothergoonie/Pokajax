@@ -1,6 +1,113 @@
+h1 {
+	color: black;
+	display: flex;
+	justify-content: center;
+	margin: 2% 0;
+	font-size: 1.7rem;
+}
+h2 {
+	display: flex;
+	justify-content: center;
+	margin: 2% 0;
+	font-size: 1.4rem;
+	color: black;
+}
+p {
+	display: flex;
+	justify-content: center;
+	margin: 2% 0;
+	font-size: 1.2rem;
+	color: black;
+}
+form {
+	margin: 1% 0%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	.inputs {
+		min-width: 30%;
+		max-width: 40%;
+	}
+	.radius {
+		min-width: 30%;
+		max-width: 40%;
+		// label {
+		// 	padding-right: 2%;
+		// }
+		// display: flex;
+		// align-items: center;
+		// margin: 2%;
+	}
+	.buttons {
+		display: flex;
+		min-width: 30%;
+		max-width: 40%;
+		justify-content: space-around;
+		.add-pokemon {
+			margin-bottom: 20%;
+		}
+	}
+}
 #map {
 	border: 1px solid black;
-	height: 400px;
-	width: 90%;
+	height: 100vh;
+	width: 95%;
 	margin: 1rem auto;
+	.gm-style-iw,
+	.gm-style-iw-c {
+		padding: 12px;
+		min-width: 0px;
+		width: 190px;
+		max-width: 200px;
+		min-height: 0px;
+		height: 190px;
+		max-height: 200px;
+	}
+	.info-window {
+		// width: 100%;
+		.card-header {
+			display: flex;
+			h1 {
+				// width: 100%;
+				margin-right: 5%;
+				color: black;
+			}
+		}
+		.move-container {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.move-one {
+				text-align: left;
+				// width: 80%;
+				margin-bottom: 15%;
+			}
+			.move-two {
+				text-align: left;
+				// width: 80%;
+				// margin: 0 auto;
+			}
+		}
+		.stats-container {
+			display: flex;
+			justify-content: space-between;
+			.attack-container {
+				display: flex;
+				flex-direction: column;
+				.normal-attack {
+					margin-bottom: 15%;
+				}
+			}
+			.defense-container {
+				display: flex;
+				flex-direction: column;
+				.normal-defense {
+					margin-bottom: 15%;
+				}
+			}
+		}
+	}
 }
