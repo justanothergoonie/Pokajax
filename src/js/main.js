@@ -189,8 +189,8 @@ class Main {
 			document.querySelector('body').dispatchEvent(evt); // google replies with a got-geocode event on body
 		});
 
-		const api = new WeatherApi();
-		api.weatherSearch(locationTerm);
+		// const api = new WeatherApi();
+		// api.weatherSearch(locationTerm);
 	};
 	handleSearchError = () => {};
 	handleWeather = (event) => {

@@ -175,10 +175,9 @@ var Main = /*#__PURE__*/function () {
           detail: locationTerm
         });
         document.querySelector('body').dispatchEvent(evt); // google replies with a got-geocode event on body
-      });
+      }); // const api = new WeatherApi();
+      // api.weatherSearch(locationTerm);
 
-      var api = new WeatherApi();
-      api.weatherSearch(locationTerm);
     });
 
     _defineProperty(this, "handleSearchError", function () {});
