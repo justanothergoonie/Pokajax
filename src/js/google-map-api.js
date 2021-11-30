@@ -81,7 +81,7 @@ class GoogleApi {
 				'<div class=card>' +
 				'<div class=card-header> ' +
 				'<h1 class=pokemon-name>' +
-				'Name ' +
+				'Name: ' +
 				poke.name +
 				'</h1>' +
 				'<span class=pokemon-health>' +
